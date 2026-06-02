@@ -4,10 +4,10 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient, APITestCase
 
-from order.factories import OrderFactory, UserFactory
-from order.models import Order
 from product.factories import CategoryFactory, ProductFactory
+from order.factories import OrderFactory, UserFactory
 from product.models import Product
+from order.models import Order
 
 
 class TestOrderViewSet(APITestCase):
