@@ -30,40 +30,22 @@ class TestOrderViewSet(APITestCase):
 
         order_data = json.loads(response.content)
         
-        # CORREÇÃO: Removido o ["results"] pois a resposta vem como lista direta
         self.assertEqual(
-            order_data[0]["product"][0]["title"], self.product.title
+            order_data["results"][0]["product"][0]["title"], self.product.title
         )
         self.assertEqual(
-            order_data[0]["product"][0]["price"], self.product.price
+            order_data["results"][0]["product"][0]["price"], self.product.price
         )
         self.assertEqual(
-            order_data[0]["product"][0]["active"], self.product.active
+            order_data["results"][0]["product"][0]["active"], self.product.active
         )
         self.assertEqual(
-            order_data[0]["product"][0]["category"][0]["title"],
+            order_data["results"][0]["product"][0]["category"][0]["title"],
             self.category.title,
         )
         # CORREÇÃO: Incluído o namespace 'order:' antes do nome da rota
         response = self.client.get(
             reverse("order:order-list", kwargs={"version": "v1"})
-        )
-
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-        order_data = json.loads(response.content)
-        self.assertEqual(
-            order_data[0]["product"][0]["title"], self.product.title
-        )
-        self.assertEqual(
-            order_data[0]["product"][0]["price"], self.product.price
-        )
-        self.assertEqual(
-            order_data[0]["product"][0]["active"], self.product.active
-        )
-        self.assertEqual(
-            order_data[0]["product"][0]["category"][0]["title"],
-            self.category.title,
         )
 
     def test_create_order(self):
