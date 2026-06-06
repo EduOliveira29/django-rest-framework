@@ -18,6 +18,7 @@ Including another URLconf
 import debug_toolbar
 from django.contrib import admin
 from django.urls import include, path
+from rest_framework.authtoken.views import ObtainAuthToken
 
 urlpatterns = [
     path('__debug__/', include(debug_toolbar.urls)),
@@ -25,4 +26,5 @@ urlpatterns = [
     # Use o include apontando para a string das urls e o namespace correspondente:
     path("bookstore/<str:version>/", include("order.urls", namespace="order")),
     path("bookstore/<str:version>/", include("product.urls", namespace="product")),
+    path('api-token-auth/', ObtainAuthToken.as_view(), name='api_token_auth'),
 ]
