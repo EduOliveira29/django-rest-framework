@@ -3,18 +3,23 @@ import json
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient, APITestCase
-
+from rest_framework.authtoken.models import Token
+from django.contrib.auth.models import User
 from product.factories import CategoryFactory, ProductFactory
 from order.factories import OrderFactory, UserFactory
-from product.models import Product
 from order.models import Order
 
 
 class TestOrderViewSet(APITestCase):
-
     client = APIClient()
 
     def setUp(self):
+        self.user = User.objects.create_user(
+            username='user_teste', 
+            password='senha_segura_123'
+        )
+        self.token = Token.objects.create(user=self.user)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
         self.category = CategoryFactory(title="technology")
         self.product = ProductFactory(
             title="mouse", price=100, category=[self.category]
