@@ -7,7 +7,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.9]
+        python-version: [3.8, 3.9]
 
     runs-on: ubuntu-latest
 
@@ -21,10 +21,7 @@ jobs:
 
     - name: Install poetry
       run: |
-        python -m ensurepip
-        python -m pip install --upgrade pip
-        python -m pip install --upgrade poetry
-
+        run: pip install "poetry>=2.0.0"
     - name: View poetry --help
       run: poetry --help
 

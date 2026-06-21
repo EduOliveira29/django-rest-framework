@@ -17,6 +17,7 @@ Including another URLconf
 # projeto/urls.py (seu arquivo principal de URLs)
 import debug_toolbar
 from django.contrib import admin
+from django.http import HttpResponse
 from django.urls import include, path
 from rest_framework.authtoken.views import ObtainAuthToken
 
@@ -27,4 +28,5 @@ urlpatterns = [
     path("bookstore/<str:version>/", include("order.urls", namespace="order")),
     path("bookstore/<str:version>/", include("product.urls", namespace="product")),
     path('api-token-auth/', ObtainAuthToken.as_view(), name='api_token_auth'),
+    path('favicon.ico', lambda r: HttpResponse(status=204)),
 ]
