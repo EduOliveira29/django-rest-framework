@@ -21,9 +21,7 @@ jobs:
 
     - name: Install poetry
       run: |
-        python -m ensurepip
-        python -m pip install --upgrade pip
-        python -m pip install --upgrade poetry
+        run: pip install "poetry>=2.0.0"
     - name: View poetry --help
       run: poetry --help
 
