@@ -21,13 +21,16 @@ jobs:
 
     - name: Install Poetry
       run: pip install poetry
+
     - name: View poetry --help
       run: poetry --help
 
     - name: Install dependencies
       shell: bash
-      run: python -m poetry install
-
+      run: 
+        python -m poetry lock --no-update
+        python -m poetry install
+        
     - name: Test
       run: |
         poetry run python manage.py test
